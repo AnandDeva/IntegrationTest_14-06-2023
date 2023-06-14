@@ -1,8 +1,8 @@
-using DatabaseProject.DbContexts;
-using DatabaseProject.Services;
+using StudentManagement.API.DbContexts;
+using StudentManagement.API.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatabaseProject
+namespace StudentManagement.API
 {
     public class Program
     {

@@ -1,8 +1,7 @@
-﻿using DatabaseProject.Models;
+﻿using StudentManagement.API.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
-namespace DatabaseProject.DbContexts
+namespace StudentManagement.API.DbContexts
 {
     public class SchoolDbContext : DbContext
     {

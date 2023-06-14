@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DatabaseProject\DatabaseProject.csproj" />
+    <ProjectReference Include="..\DatabaseProject\StudentManagement.API.csproj" />
   </ItemGroup>
 
 </Project>

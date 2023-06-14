@@ -1,6 +1,6 @@
-﻿using DatabaseProject.Models;
+﻿using StudentManagement.API.Models;
 
-namespace DatabaseProject.Services
+namespace StudentManagement.API.Services
 {
     public interface IStudentService
     {

@@ -1,4 +1,4 @@
-namespace DatabaseProject.Test
+namespace StudentManagement.API.Tests.Integration.Test
 {
     public class UnitTest1
     {

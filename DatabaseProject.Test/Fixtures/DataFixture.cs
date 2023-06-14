@@ -1,7 +1,7 @@
 ﻿using Bogus;
-using DatabaseProject.Models;
+using StudentManagement.API.Models;
 
-namespace DatabaseProject.Test.Fixtures
+namespace StudentManagement.API.Tests.Integration.Fixtures
 {
     internal class DataFixture
     {

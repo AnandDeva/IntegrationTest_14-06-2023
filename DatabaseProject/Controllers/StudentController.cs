@@ -1,8 +1,8 @@
-﻿using DatabaseProject.Models;
-using DatabaseProject.Services;
+﻿using StudentManagement.API.Models;
+using StudentManagement.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DatabaseProject.Controllers
+namespace StudentManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

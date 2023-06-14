@@ -1,7 +1,7 @@
-﻿using AutoFixture;
-using DatabaseProject.Models;
-using DatabaseProject.Test.Fixtures;
-using DatabaseProject.Test.Helper;
+﻿
+using StudentManagement.API.Models;
+using StudentManagement.API.Tests.Integration.Fixtures;
+using StudentManagement.API.Tests.Integration.Helper;
 using FluentAssertions;
 using System.Net.Http.Json;
 
@@ -40,15 +40,11 @@ namespace DatabaseProject.Test.Controllers
         public async Task OnAddStudent_WhenExecuteController_ShouldStoreInDb()
         {
             // Arrange
-            var fixture = new Fixture();
-            var newStudent = fixture.Create<Student>();
-            //var newStudent = DataFixture.GetStudent(true);
+            var newStudent = DataFixture.GetStudent(true);
 
             // Act
-            var request = await _client.PostAsync(HttpHelper.Urls.AddStudent, 
-                            HttpHelper.GetJsonHttpContent(newStudent));
-            var response = await _client.GetAsync($"{HttpHelper.Urls.GetStudent}/" +
-                            $"{_factory.InitialStudentsCount + 1}");
+            var request = await _client.PostAsync(HttpHelper.Urls.AddStudent, HttpHelper.GetJsonHttpContent(newStudent));
+            var response = await _client.GetAsync($"{HttpHelper.Urls.GetStudent}/{_factory.InitialStudentsCount + 1}");
             var result = await response.Content.ReadFromJsonAsync<Student>();
 
             // Assert

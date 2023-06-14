@@ -1,8 +1,8 @@
 ﻿using AutoFixture;
-using DatabaseProject.DbContexts;
-using DatabaseProject.Models;
-using DatabaseProject.Test.Fixtures;
-using DatabaseProject.Test.Helper;
+using StudentManagement.API.DbContexts;
+using StudentManagement.API.Models;
+using StudentManagement.API.Tests.Integration.Fixtures;
+using StudentManagement.API.Tests.Integration.Helper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net.Http.Json;
 
-namespace DatabaseProject.Test.Controllers
+namespace StudentManagement.API.Tests.Integration.Controllers
 {
     public class InMemoryDatabase
     {
@@ -20,7 +20,7 @@ namespace DatabaseProject.Test.Controllers
         public InMemoryDatabase()
         {
             
-            _factory = new WebApplicationFactory<DatabaseProject.Program>()
+            _factory = new WebApplicationFactory<StudentManagement.API.Program>()
                 .WithWebHostBuilder(builder =>
                 {
                     builder.ConfigureTestServices(services =>
@@ -46,8 +46,13 @@ namespace DatabaseProject.Test.Controllers
 
                 dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
-                var fixture = new Fixture();
-                dbContext.Students.Add(fixture.Create<Student>());
+                dbContext.Students.Add(new Models.Student()
+                {
+                    FirstName = "name1",
+                    LastName = "family1",
+                    Address = "address1",
+                    BirthDay = new DateTime(1970, 05, 20)
+                });
 
                 dbContext.SaveChanges();
             }
@@ -61,7 +66,12 @@ namespace DatabaseProject.Test.Controllers
             // Assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
-            result.Count.Should().Be(result.Count);
+            result.Count.Should().Be(1);
+
+            result[0].FirstName.Should().Be("name1");
+            result[0].LastName.Should().Be("family1");
+            result[0].Address.Should().Be("address1");
+            result[0].BirthDay.Should().Be(new DateTime(1970, 05, 20));
 
         }
 
@@ -78,8 +88,7 @@ namespace DatabaseProject.Test.Controllers
                 cntx.Database.EnsureCreated();
             }
             var client = _factory.CreateClient();
-            var fixture = new Fixture();
-            var newStudent = fixture.Create<Student>();
+            var newStudent = DataFixture.GetStudent();
 
             var httpContent = HttpHelper.GetJsonHttpContent(newStudent);
 

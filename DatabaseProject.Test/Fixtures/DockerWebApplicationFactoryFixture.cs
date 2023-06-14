@@ -1,4 +1,4 @@
-﻿using DatabaseProject.DbContexts;
+﻿using StudentManagement.API.DbContexts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -7,9 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Testcontainers.MsSql;
 
-namespace DatabaseProject.Test.Fixtures
+namespace StudentManagement.API.Tests.Integration.Fixtures
 {
-    public class DockerWebApplicationFactoryFixture : WebApplicationFactory<DatabaseProject.Program>, IAsyncLifetime
+    public class DockerWebApplicationFactoryFixture : WebApplicationFactory<StudentManagement.API.Program>, IAsyncLifetime
     {
         private MsSqlContainer _dbContainer;
         public int InitialStudentsCount { get; } = 3;

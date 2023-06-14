@@ -1,11 +1,11 @@
-﻿using DatabaseProject.DbContexts;
+﻿using StudentManagement.API.DbContexts;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace DatabaseProject.Test.Fixtures
+namespace StudentManagement.API.Tests.Integration.Fixtures
 {
     public class WebApplicationFactoryFixture : IAsyncLifetime
     {
@@ -18,7 +18,7 @@ namespace DatabaseProject.Test.Fixtures
 
         public WebApplicationFactoryFixture()
         {
-            _factory = new WebApplicationFactory<DatabaseProject.Program>().WithWebHostBuilder(builder =>
+            _factory = new WebApplicationFactory<StudentManagement.API.Program>().WithWebHostBuilder(builder =>
             {
                 builder.ConfigureTestServices(Services =>
                 {
