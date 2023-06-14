@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net.Http.Json;
+using Xunit;
 
 namespace StudentManagement.API.Tests.Integration.Controllers
 {

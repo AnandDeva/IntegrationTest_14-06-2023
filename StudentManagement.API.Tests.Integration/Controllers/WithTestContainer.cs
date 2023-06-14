@@ -4,6 +4,7 @@ using StudentManagement.API.Tests.Integration.Fixtures;
 using StudentManagement.API.Tests.Integration.Helper;
 using FluentAssertions;
 using System.Net.Http.Json;
+using Xunit;
 
 namespace StudentManagement.API.Tests.Integration.Controllers
 {

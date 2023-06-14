@@ -5,6 +5,7 @@ using StudentManagement.API.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Xunit;
 
 namespace StudentManagement.API.Tests.Unit.Controllers
 {
