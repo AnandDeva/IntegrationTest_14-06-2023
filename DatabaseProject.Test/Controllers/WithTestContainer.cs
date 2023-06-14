@@ -1,4 +1,5 @@
-﻿using DatabaseProject.Models;
+﻿using AutoFixture;
+using DatabaseProject.Models;
 using DatabaseProject.Test.Fixtures;
 using DatabaseProject.Test.Helper;
 using FluentAssertions;
@@ -31,18 +32,23 @@ namespace DatabaseProject.Test.Controllers
 
             result.Count.Should().Be(_factory.InitialStudentsCount);
             result.Should()
-                .BeEquivalentTo(DataFixture.GetStudents(_factory.InitialStudentsCount), options => options.Excluding(t => t.StudentId));
+                .BeEquivalentTo(DataFixture.GetStudents(_factory.InitialStudentsCount),
+                options => options.Excluding(t => t.StudentId));
         }
 
         [Fact]
         public async Task OnAddStudent_WhenExecuteController_ShouldStoreInDb()
         {
             // Arrange
-            var newStudent = DataFixture.GetStudent(true);
+            var fixture = new Fixture();
+            var newStudent = fixture.Create<Student>();
+            //var newStudent = DataFixture.GetStudent(true);
 
             // Act
-            var request = await _client.PostAsync(HttpHelper.Urls.AddStudent, HttpHelper.GetJsonHttpContent(newStudent));
-            var response = await _client.GetAsync($"{HttpHelper.Urls.GetStudent}/{_factory.InitialStudentsCount + 1}");
+            var request = await _client.PostAsync(HttpHelper.Urls.AddStudent, 
+                            HttpHelper.GetJsonHttpContent(newStudent));
+            var response = await _client.GetAsync($"{HttpHelper.Urls.GetStudent}/" +
+                            $"{_factory.InitialStudentsCount + 1}");
             var result = await response.Content.ReadFromJsonAsync<Student>();
 
             // Assert

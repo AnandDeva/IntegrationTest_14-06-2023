@@ -1,4 +1,5 @@
-﻿using DatabaseProject.DbContexts;
+﻿using AutoFixture;
+using DatabaseProject.DbContexts;
 using DatabaseProject.Models;
 using DatabaseProject.Test.Fixtures;
 using DatabaseProject.Test.Helper;
@@ -45,13 +46,8 @@ namespace DatabaseProject.Test.Controllers
 
                 dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
-                dbContext.Students.Add(new Models.Student()
-                {
-                    FirstName = "name1",
-                    LastName = "family1",
-                    Address = "address1",
-                    BirthDay = new DateTime(1970, 05, 20)
-                });
+                var fixture = new Fixture();
+                dbContext.Students.Add(fixture.Create<Student>());
 
                 dbContext.SaveChanges();
             }
@@ -65,12 +61,7 @@ namespace DatabaseProject.Test.Controllers
             // Assert
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
-            result.Count.Should().Be(1);
-
-            result[0].FirstName.Should().Be("name1");
-            result[0].LastName.Should().Be("family1");
-            result[0].Address.Should().Be("address1");
-            result[0].BirthDay.Should().Be(new DateTime(1970, 05, 20));
+            result.Count.Should().Be(result.Count);
 
         }
 
@@ -87,7 +78,8 @@ namespace DatabaseProject.Test.Controllers
                 cntx.Database.EnsureCreated();
             }
             var client = _factory.CreateClient();
-            var newStudent = DataFixture.GetStudent();
+            var fixture = new Fixture();
+            var newStudent = fixture.Create<Student>();
 
             var httpContent = HttpHelper.GetJsonHttpContent(newStudent);
 

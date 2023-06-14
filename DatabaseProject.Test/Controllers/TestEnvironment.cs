@@ -1,4 +1,5 @@
-﻿using DatabaseProject.Models;
+﻿using AutoFixture;
+using DatabaseProject.Models;
 using DatabaseProject.Test.Fixtures;
 using DatabaseProject.Test.Helper;
 using FluentAssertions;
@@ -6,11 +7,11 @@ using System.Net.Http.Json;
 
 namespace DatabaseProject.Test.Controllers
 {
-    public class TestEnvironemnt:IClassFixture<WebApplicationFactoryFixture>
+    public class TestEnvironment:IClassFixture<WebApplicationFactoryFixture>
     {
         private readonly WebApplicationFactoryFixture _factory;
 
-        public TestEnvironemnt(WebApplicationFactoryFixture factory)
+        public TestEnvironment(WebApplicationFactoryFixture factory)
         {
             _factory = factory;
         }
@@ -29,18 +30,23 @@ namespace DatabaseProject.Test.Controllers
 
             result.Count.Should().Be(_factory.InitialStudentsCount);
             result.Should()
-                .BeEquivalentTo(DataFixture.GetStudents(_factory.InitialStudentsCount), options => options.Excluding(t => t.StudentId));
+                .BeEquivalentTo(DataFixture.GetStudents(_factory.InitialStudentsCount),
+                options => options.Excluding(t => t.StudentId));
         }
 
         [Fact]
         public async Task OnAddStudent_WhenExecuteController_ShouldStoreInDb()
         {
             // Arrange
-            var newStudent = DataFixture.GetStudent(true);
+            var fixture = new Fixture();
+            var newStudent = fixture.Create<Student>();
+            //var newStudent = DataFixture.GetStudent(true);
 
             // Act
-            var request = await _factory.Client.PostAsync(HttpHelper.Urls.AddStudent, HttpHelper.GetJsonHttpContent(newStudent));
-            var response = await _factory.Client.GetAsync($"{HttpHelper.Urls.GetStudent}/{_factory.InitialStudentsCount + 1}");
+            var request = await _factory.Client.PostAsync(HttpHelper.Urls.AddStudent, 
+                HttpHelper.GetJsonHttpContent(newStudent));
+            var response = await _factory.Client.GetAsync($"{HttpHelper.Urls.GetStudent}/" +
+                            $"{_factory.InitialStudentsCount + 1}");
             var result = await response.Content.ReadFromJsonAsync<Student>();
 
             // Assert
