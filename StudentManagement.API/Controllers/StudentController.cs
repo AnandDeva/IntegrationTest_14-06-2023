@@ -15,17 +15,21 @@ namespace StudentManagement.API.Controllers
             _studentService = studentService;
         }
 
-        [HttpGet("GetAllAsync")]
-        public async Task<IActionResult> GetAllStudentsAsync()
+        [HttpGet("GetAllStudents")]
+        public async Task<IActionResult> GetAllStudents()
         {
-            var value = await _studentService.GetStudentsAsync();
-            return Ok(value);
+            var students = await _studentService.GetAllStudents();
+            if (students.Any())
+            {
+                return Ok(students);
+            }
+            return NotFound();
         }
 
-        [HttpGet("GetAsync/{Id}")]
-        public async Task<IActionResult> GetStudentAsync(int Id)
+        [HttpGet("GetStudent/{Id}")]
+        public async Task<IActionResult> GetStudent(int Id)
         {
-            var result = await _studentService.GetStudentAsync(Id);
+            var result = await _studentService.GetStudent(Id);
             if (result is null)
             {
                 return NotFound("The item not found");
@@ -33,40 +37,40 @@ namespace StudentManagement.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("AddAsync")]
-        public async Task<IActionResult> GetAllStudentsAsync(Student student)
+        [HttpPost("AddStudent")]
+        public async Task<IActionResult> AddStudent(Student student)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Model is Not Valid.");
             }
 
-            if (await _studentService.AddStudentAsync(student))
+            if (await _studentService.AddStudent(student))
             {
                 return Ok("Done");
             }
             return BadRequest("Something went wrong please try again.");
         }
 
-        [HttpPut("UpdateAsync")]
-        public async Task<IActionResult> EditStudentAsync(Student student)
+        [HttpPut("EditStudent")]
+        public async Task<IActionResult> EditStudent(Student student)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Model is Not Valid.");
             }
 
-            if (await _studentService.EditStudentAsync(student))
+            if (await _studentService.EditStudent(student))
             {
                 return Ok("Done");
             }
             return BadRequest("Something went wrong please try again.");
         }
 
-        [HttpDelete("DeleteAsync")]
-        public async Task<IActionResult> DeleteAsync(int Id)
+        [HttpDelete("DeleteStudent")]
+        public async Task<IActionResult> DeleteStudent(int Id)
         {
-            if (await _studentService.DeleteStudentAsync(Id))
+            if (await _studentService.DeleteStudent(Id))
             {
                 return Ok("Done");
             }

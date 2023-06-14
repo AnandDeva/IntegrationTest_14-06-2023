@@ -4,10 +4,10 @@ namespace StudentManagement.API.Services
 {
     public interface IStudentService
     {
-        Task<bool> AddStudentAsync(Student newStudent);
-        Task<bool> DeleteStudentAsync(int Id);
-        Task<bool> EditStudentAsync(Student editedStudent);
-        Task<Student> GetStudentAsync(int Id);
-        Task<List<Student>> GetStudentsAsync();
+        Task<bool> AddStudent(Student newStudent);
+        Task<bool> DeleteStudent(int Id);
+        Task<bool> EditStudent(Student editedStudent);
+        Task<Student> GetStudent(int Id);
+        Task<List<Student>> GetAllStudents();
     }
 }

@@ -5,7 +5,7 @@ using StudentManagement.API.Tests.Integration.Helper;
 using FluentAssertions;
 using System.Net.Http.Json;
 
-namespace DatabaseProject.Test.Controllers
+namespace StudentManagement.API.Tests.Integration.Controllers
 {
     public class WithTestContainer: IClassFixture<DockerWebApplicationFactoryFixture>
     {
