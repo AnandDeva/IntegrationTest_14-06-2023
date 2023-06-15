@@ -8,11 +8,11 @@ using Xunit;
 
 namespace StudentManagement.API.Tests.Integration.Controllers
 {
-    public class TestEnvironment:IClassFixture<WebApplicationFactoryFixture>
+    public class EnvironmentControllerTest:IClassFixture<WebApplicationFactoryFixture>
     {
         private readonly WebApplicationFactoryFixture _factory;
 
-        public TestEnvironment(WebApplicationFactoryFixture factory)
+        public EnvironmentControllerTest(WebApplicationFactoryFixture factory)
         {
             _factory = factory;
         }

@@ -14,11 +14,11 @@ using Xunit;
 
 namespace StudentManagement.API.Tests.Integration.Controllers
 {
-    public class TestInMemoryDatabase
+    public class InMemoryDatabaseControllerTest
     {
         private WebApplicationFactory<Program> _factory;
 
-        public TestInMemoryDatabase()
+        public InMemoryDatabaseControllerTest()
         {
             
             _factory = new WebApplicationFactory<StudentManagement.API.Program>()

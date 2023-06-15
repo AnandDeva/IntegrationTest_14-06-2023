@@ -8,12 +8,12 @@ using Xunit;
 
 namespace StudentManagement.API.Tests.Integration.Controllers
 {
-    public class TestContainer: IClassFixture<DockerWebApplicationFactoryFixture>
+    public class ContainerControllerTest: IClassFixture<DockerWebApplicationFactoryFixture>
     {
         private readonly DockerWebApplicationFactoryFixture _factory;
         private readonly HttpClient _client;
 
-        public TestContainer(DockerWebApplicationFactoryFixture factory)
+        public ContainerControllerTest(DockerWebApplicationFactoryFixture factory)
         {
             _factory = factory;
             _client = _factory.CreateClient();
