@@ -26,8 +26,8 @@ namespace StudentManagement.API.Tests.Integration.Controllers
                 {
                     builder.ConfigureTestServices(services =>
                     {
-                        services.RemoveAll(typeof(DbContextOptions<SchoolDbContext>));
-                        services.AddDbContext<SchoolDbContext>(options =>
+                        services.RemoveAll(typeof(DbContextOptions<StudentDbContext>));
+                        services.AddDbContext<StudentDbContext>(options =>
                         {
                             options.UseInMemoryDatabase("test");
                         });
@@ -43,7 +43,7 @@ namespace StudentManagement.API.Tests.Integration.Controllers
             using (var scope = _factory.Services.CreateScope())
             {
                 var scopService = scope.ServiceProvider;
-                var dbContext = scopService.GetRequiredService<SchoolDbContext>();
+                var dbContext = scopService.GetRequiredService<StudentDbContext>();
 
                 dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
@@ -83,7 +83,7 @@ namespace StudentManagement.API.Tests.Integration.Controllers
             using (var scope = _factory.Services.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
-                var cntx = scopedServices.GetRequiredService<SchoolDbContext>();
+                var cntx = scopedServices.GetRequiredService<StudentDbContext>();
 
                 cntx.Database.EnsureDeleted();
                 cntx.Database.EnsureCreated();

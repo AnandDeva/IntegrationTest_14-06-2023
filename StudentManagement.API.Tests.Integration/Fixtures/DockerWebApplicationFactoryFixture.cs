@@ -26,8 +26,8 @@ namespace StudentManagement.API.Tests.Integration.Fixtures
             base.ConfigureWebHost(builder);
             builder.ConfigureTestServices(services =>
             {
-                services.RemoveAll(typeof(DbContextOptions<SchoolDbContext>));
-                services.AddDbContext<SchoolDbContext>(options =>
+                services.RemoveAll(typeof(DbContextOptions<StudentDbContext>));
+                services.AddDbContext<StudentDbContext>(options =>
                 {
                     options.UseSqlServer(connectionString);
                 });
@@ -41,7 +41,7 @@ namespace StudentManagement.API.Tests.Integration.Fixtures
             using (var scope = Services.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
-                var cntx = scopedServices.GetRequiredService<SchoolDbContext>();
+                var cntx = scopedServices.GetRequiredService<StudentDbContext>();
 
                 await cntx.Database.EnsureCreatedAsync();
 

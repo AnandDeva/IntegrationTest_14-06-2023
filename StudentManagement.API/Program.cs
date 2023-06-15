@@ -11,7 +11,7 @@ namespace StudentManagement.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddDbContext<SchoolDbContext>(options =>
+            builder.Services.AddDbContext<StudentDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddTransient<IStudentService, StudentService>();

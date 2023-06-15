@@ -5,9 +5,9 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagement.API", "StudentManagement.API\StudentManagement.API.csproj", "{0949170C-1810-4ED8-945A-BCFCD18A7EAD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagement.API.Tests.Integration", "StudentManagement.API.Tests.Integration\StudentManagement.API.Tests.Integration.csproj", "{E5B612E9-C8A1-44E1-A093-88CCDB92D6E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagement.API.IntegrationTests", "StudentManagement.API.Tests.Integration\StudentManagement.API.IntegrationTests.csproj", "{E5B612E9-C8A1-44E1-A093-88CCDB92D6E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagement.API.Tests.Unit", "StudentManagement.API.Tests.Unit\StudentManagement.API.Tests.Unit.csproj", "{EB6C8ED0-DD46-4859-86D2-A825BC9DB973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManagement.API.UnitTests", "StudentManagement.API.Tests.Unit\StudentManagement.API.UnitTests.csproj", "{EB6C8ED0-DD46-4859-86D2-A825BC9DB973}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
