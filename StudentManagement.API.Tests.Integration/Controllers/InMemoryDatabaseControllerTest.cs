@@ -20,7 +20,6 @@ namespace StudentManagement.API.Tests.Integration.Controllers
 
         public InMemoryDatabaseControllerTest()
         {
-            
             _factory = new WebApplicationFactory<StudentManagement.API.Program>()
                 .WithWebHostBuilder(builder =>
                 {
@@ -39,7 +38,6 @@ namespace StudentManagement.API.Tests.Integration.Controllers
         public async void OnGetStudent_WhenExecuteApi_ShouldReturnExpectedStudent()
         {
             // Arrange
-
             using (var scope = _factory.Services.CreateScope())
             {
                 var scopService = scope.ServiceProvider;

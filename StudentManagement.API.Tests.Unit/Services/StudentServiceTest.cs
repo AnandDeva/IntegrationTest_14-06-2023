@@ -40,7 +40,7 @@ namespace StudentManagement.API.Tests.Unit.Services
         }
 
         [Fact]
-        public async Task GetAllMentors_ReturnsEmptyList_WhenNoMentorsExist()
+        public async Task GetAllStudents_ReturnsEmptyList_WhenNoMentorsExist()
         {
             // Arrange
             var mockDbSet = CreateMockDbSet(new List<Student>());
@@ -51,6 +51,67 @@ namespace StudentManagement.API.Tests.Unit.Services
 
             // Assert
             result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task GetStudentById_ReturnsStudent()
+        {
+            // Arrange
+            var student = _fixture.Create<Student>();
+            _mockDbContext.Setup(c => c.FindAsync<Student>(student.StudentId)).ReturnsAsync(student);
+
+            // Act
+            var result = await _studentService.GetStudentAsync(student.StudentId);
+
+            // Assert
+            result.Should().Be(student);
+        }
+
+        [Fact]
+        public async Task AddStudent_ReturnsAddedStudent()
+        {
+            // Arrange
+            var student = _fixture.Create<Student>();
+            _mockDbContext.Setup(c => c.AddAsync(student)).Returns(Task.CompletedTask);
+
+            // Act
+            var result = await _studentService.AddStudentAsync(student);
+
+            // Assert
+            result.Should().Be(true);
+            _mockDbContext.Verify(c => c.SaveChangesAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task UpdateStudent_ReturnsUpdatedStudent()
+        {
+            // Arrange
+            var existingStudent = _fixture.Create<Student>();
+            var updatedStudent = _fixture.Create<Student>();
+            _mockDbContext.Setup(c => c.FindAsync<Student>(existingStudent.StudentId)).ReturnsAsync(existingStudent);
+
+            // Act
+            var result = await _studentService.EditStudentAsync(updatedStudent);
+
+            // Assert
+            result.Should().Be(true);
+            existingStudent.Should().BeEquivalentTo(updatedStudent);
+            _mockDbContext.Verify(c => c.SaveChangesAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task DeleteStudent_DeletesStudent()
+        {
+            // Arrange
+            var existingStudent = _fixture.Create<Student>();
+            _mockDbContext.Setup(c => c.FindAsync<Student>(existingStudent.StudentId)).ReturnsAsync(existingStudent);
+
+             // Act
+            await _studentService.DeleteStudentAsync(existingStudent.StudentId);
+
+            // Assert
+            _mockDbContext.Verify(c => c.Remove(existingStudent), Times.Once);
+            _mockDbContext.Verify(c => c.SaveChangesAsync(), Times.Once);
         }
 
 

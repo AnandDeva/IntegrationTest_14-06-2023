@@ -15,6 +15,7 @@ namespace StudentManagement.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddTransient<IStudentService, StudentService>();
+            builder.Services.AddScoped<IStudentDbContext, StudentDbContext>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
