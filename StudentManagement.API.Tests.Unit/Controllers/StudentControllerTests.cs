@@ -9,7 +9,7 @@ using Xunit;
 
 namespace StudentManagement.API.Tests.Unit.Controllers
 {
-    public class StudentControllerTest
+    public class StudentControllerTests
     {
         [Fact]
         public async Task Get_OnSuccess_ReturnsStatusCode200()

@@ -1,11 +1,11 @@
 ﻿
 namespace StudentManagement.API.UnitTests.Helpers
 {
-    internal class InMemoryAsyncEnumerator<T> : IAsyncEnumerator<T>
+    internal class AsyncEnumeratorHelper<T> : IAsyncEnumerator<T>
     {
         private readonly IEnumerator<T> _enumerator;
 
-        public InMemoryAsyncEnumerator(IEnumerator<T> enumerator)
+        public AsyncEnumeratorHelper(IEnumerator<T> enumerator)
         {
             _enumerator = enumerator;
         }

@@ -40,7 +40,7 @@ namespace StudentManagement.API.Tests.Unit.Services
         }
 
         [Fact]
-        public async Task GetAllStudents_ReturnsEmptyList_WhenNoMentorsExist()
+        public async Task GetAllStudents_ReturnsEmptyList_WhenNoStudentExist()
         {
             // Arrange
             var mockDbSet = CreateMockDbSet(new List<Student>());
@@ -54,7 +54,7 @@ namespace StudentManagement.API.Tests.Unit.Services
         }
 
         [Fact]
-        public async Task GetStudentById_ReturnsStudent()
+        public async Task GetStudentById_ReturnsStudentById()
         {
             // Arrange
             var student = _fixture.Create<Student>();
@@ -118,15 +118,15 @@ namespace StudentManagement.API.Tests.Unit.Services
         private static Mock<DbSet<TEntity>> CreateMockDbSet<TEntity>(List<TEntity> data) where TEntity : class
         {
             var mockDbSet = new Mock<DbSet<TEntity>>();
-            var queryableData = data.AsQueryable();
+            var queryData = data.AsQueryable();
 
-            mockDbSet.As<IQueryable<TEntity>>().Setup(m => m.Provider).Returns(queryableData.Provider);
-            mockDbSet.As<IQueryable<TEntity>>().Setup(m => m.Expression).Returns(queryableData.Expression);
-            mockDbSet.As<IQueryable<TEntity>>().Setup(m => m.ElementType).Returns(queryableData.ElementType);
-            mockDbSet.As<IQueryable<TEntity>>().Setup(m => m.GetEnumerator()).Returns(queryableData.GetEnumerator());
+            mockDbSet.As<IQueryable<TEntity>>().Setup(m => m.Provider).Returns(queryData.Provider);
+            mockDbSet.As<IQueryable<TEntity>>().Setup(m => m.Expression).Returns(queryData.Expression);
+            mockDbSet.As<IQueryable<TEntity>>().Setup(m => m.ElementType).Returns(queryData.ElementType);
+            mockDbSet.As<IQueryable<TEntity>>().Setup(m => m.GetEnumerator()).Returns(queryData.GetEnumerator());
             mockDbSet.As<IAsyncEnumerable<TEntity>>()
                 .Setup(m => m.GetAsyncEnumerator(It.IsAny<CancellationToken>()))
-                .Returns(new InMemoryAsyncEnumerator<TEntity>(queryableData.GetEnumerator()));
+                .Returns(new AsyncEnumeratorHelper<TEntity>(queryData.GetEnumerator()));
 
             return mockDbSet;
         }
