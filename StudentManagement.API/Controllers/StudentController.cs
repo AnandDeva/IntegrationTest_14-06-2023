@@ -16,9 +16,9 @@ namespace StudentManagement.API.Controllers
         }
 
         [HttpGet("GetAllStudents")]
-        public async Task<IActionResult> GetAllStudents()
+        public async Task<IActionResult> GetAllStudentsAsync()
         {
-            var students = await _studentService.GetAllStudents();
+            var students = await _studentService.GetAllStudentsAsync();
             if (students.Any())
             {
                 return Ok(students);
@@ -27,9 +27,9 @@ namespace StudentManagement.API.Controllers
         }
 
         [HttpGet("GetStudent/{Id}")]
-        public async Task<IActionResult> GetStudent(int Id)
+        public async Task<IActionResult> GetStudentAsync(int Id)
         {
-            var result = await _studentService.GetStudent(Id);
+            var result = await _studentService.GetStudentAsync(Id);
             if (result is null)
             {
                 return NotFound("The item not found");
@@ -38,14 +38,14 @@ namespace StudentManagement.API.Controllers
         }
 
         [HttpPost("AddStudent")]
-        public async Task<IActionResult> AddStudent(Student student)
+        public async Task<IActionResult> AddStudentAsync(Student student)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Model is Not Valid.");
             }
 
-            if (await _studentService.AddStudent(student))
+            if (await _studentService.AddStudentAsync(student))
             {
                 return Ok("Done");
             }
@@ -53,14 +53,14 @@ namespace StudentManagement.API.Controllers
         }
 
         [HttpPut("EditStudent")]
-        public async Task<IActionResult> EditStudent(Student student)
+        public async Task<IActionResult> EditStudentAsync(Student student)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Model is Not Valid.");
             }
 
-            if (await _studentService.EditStudent(student))
+            if (await _studentService.EditStudentAsync(student))
             {
                 return Ok("Done");
             }
@@ -68,9 +68,9 @@ namespace StudentManagement.API.Controllers
         }
 
         [HttpDelete("DeleteStudent")]
-        public async Task<IActionResult> DeleteStudent(int Id)
+        public async Task<IActionResult> DeleteStudentAsync(int Id)
         {
-            if (await _studentService.DeleteStudent(Id))
+            if (await _studentService.DeleteStudentAsync(Id))
             {
                 return Ok("Done");
             }

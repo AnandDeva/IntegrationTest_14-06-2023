@@ -20,11 +20,11 @@ namespace StudentManagement.API.Tests.Unit.Controllers
             var student = fixture.Create<List<Student>>();
 
             mockStudentService
-               .Setup(service => service.GetAllStudents())
+               .Setup(service => service.GetAllStudentsAsync())
                .ReturnsAsync(student);
             var sut = new StudentController(mockStudentService.Object);
             //Act
-            var result = (OkObjectResult)await sut.GetAllStudents();
+            var result = (OkObjectResult)await sut.GetAllStudentsAsync();
             //Assert
             result.StatusCode.Should().Be(200);
 
@@ -36,15 +36,15 @@ namespace StudentManagement.API.Tests.Unit.Controllers
             //Arrange
             var mockStudentsService = new Mock<IStudentService>();
             mockStudentsService
-                .Setup(service => service.GetAllStudents())
+                .Setup(service => service.GetAllStudentsAsync())
                 .ReturnsAsync(new List<Student>());
             var sut = new StudentController(mockStudentsService.Object);
 
             //Act
-            var result = await sut.GetAllStudents();
+            var result = await sut.GetAllStudentsAsync();
             //Assert
             mockStudentsService.Verify(
-                service => service.GetAllStudents(),
+                service => service.GetAllStudentsAsync(),
                 Times.Once()
             );
         }
@@ -57,12 +57,12 @@ namespace StudentManagement.API.Tests.Unit.Controllers
             var fixture = new Fixture();
             var Students = fixture.Create<List<Student>>();
             mockStudentsService
-                .Setup(service => service.GetAllStudents())
+                .Setup(service => service.GetAllStudentsAsync())
                 .ReturnsAsync(Students);
             var sut = new StudentController(mockStudentsService.Object);
 
             //Act
-            var result = await sut.GetAllStudents();
+            var result = await sut.GetAllStudentsAsync();
             //Assert
             result.Should().BeOfType<OkObjectResult>();
             var objectResult = (OkObjectResult)result;
@@ -75,12 +75,12 @@ namespace StudentManagement.API.Tests.Unit.Controllers
             //Arrange
             var mockStudentsService = new Mock<IStudentService>();
             mockStudentsService
-                .Setup(service => service.GetAllStudents())
+                .Setup(service => service.GetAllStudentsAsync())
                 .ReturnsAsync(new List<Student>());
             var sut = new StudentController(mockStudentsService.Object);
 
             //Act
-            var result = await sut.GetAllStudents();
+            var result = await sut.GetAllStudentsAsync();
             //Assert
             result.Should().BeOfType<NotFoundResult>();
             var objectResult = (NotFoundResult)result;

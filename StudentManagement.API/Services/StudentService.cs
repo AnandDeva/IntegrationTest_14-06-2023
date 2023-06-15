@@ -13,31 +13,31 @@ namespace StudentManagement.API.Services
             _context = context;
         }
 
-        public async Task<List<Student>> GetAllStudents()
+        public async Task<List<Student>> GetAllStudentsAsync()
         {
             return await _context.Students.ToListAsync();
         }
 
-        public async Task<Student> GetStudent(int Id)
+        public async Task<Student> GetStudentAsync(int Id)
         {
             return await _context.Students.FindAsync(Id);
         }
 
-        public async Task<bool> AddStudent(Student newStudent)
+        public async Task<bool> AddStudentAsync(Student newStudent)
         {
             _context.Students.Add(newStudent);
             var result = await _context.SaveChangesAsync();
             return result > 0;
         }
 
-        public async Task<bool> EditStudent(Student editedStudent)
+        public async Task<bool> EditStudentAsync(Student editedStudent)
         {
             _context.Update(editedStudent);
             var result = await _context.SaveChangesAsync();
             return result > 0;
         }
 
-        public async Task<bool> DeleteStudent(int Id)
+        public async Task<bool> DeleteStudentAsync(int Id)
         {
             var student = await _context.Students.FindAsync(Id);
             if (student is null)
