@@ -12,15 +12,15 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net.Http.Json;
 using Xunit;
 
-namespace StudentManagement.API.Tests.Integration.Controllers
+namespace StudentManagement.API.IntegrationTests.Controllers.InMemory
 {
-    public class InMemoryDatabaseControllerTest
+    public class StudentControllerTests
     {
         private WebApplicationFactory<Program> _factory;
 
-        public InMemoryDatabaseControllerTest()
+        public StudentControllerTests()
         {
-            _factory = new WebApplicationFactory<StudentManagement.API.Program>()
+            _factory = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
                 {
                     builder.ConfigureTestServices(services =>
@@ -45,7 +45,7 @@ namespace StudentManagement.API.Tests.Integration.Controllers
 
                 dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
-                dbContext.Students.Add(new Models.Student()
+                dbContext.Students.Add(new Student()
                 {
                     FirstName = "name1",
                     LastName = "family1",
